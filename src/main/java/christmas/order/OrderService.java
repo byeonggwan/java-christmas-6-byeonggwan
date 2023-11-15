@@ -33,6 +33,7 @@ public class OrderService {
             for (String name : order.keySet()) {
                 add(name, order.get(name));
             }
+            checkOrder();
         }
         catch (IllegalArgumentException ex) {
             this.order.clear();
@@ -60,5 +61,24 @@ public class OrderService {
             }
         }
         return count;
+    }
+
+    /*
+        음료만 주문 시, 주문할 수 없습니다.
+        메뉴는 한 번에 최대 20개까지만 주문할 수 있습니다.
+     */
+    private void checkOrder() {
+        Integer totalCount = 0;
+        boolean isOnlyBeverage = true;
+        for (Integer count : order.values()) {
+            totalCount += count;
+        }
+        for (MenuItem menuItem : order.keySet()) {
+            if (!menuItem.getCategory().equals("음료")) {
+                isOnlyBeverage = false;
+            }
+        }
+        if (totalCount > 20 || isOnlyBeverage)
+            throw new IllegalArgumentException(invalidOrderMsg);
     }
 }

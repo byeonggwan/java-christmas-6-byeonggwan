@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import christmas.order.OrderService;
+import java.util.HashMap;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -47,6 +48,31 @@ public class OrderServiceTest {
     @Test
     void getTotalPriceNoOrder() {
         assertEquals(0, orderService.getTotalPrice());
+    }
+
+    @DisplayName("checkOrder - 음료만 주문")
+    @Test
+    void checkOrderOnlyBeverage() {
+        HashMap<String, Integer> orderMap = new HashMap<>();
+        orderMap.put("제로콜라", 2);
+        orderMap.put("레드와인", 1);
+
+        assertThrows(IllegalArgumentException.class, () ->
+                orderService.addByMap(orderMap)
+        );
+    }
+
+    @DisplayName("checkOrder - 주문 20개 초과")
+    @Test
+    void checkOrderValidOrder() {
+        HashMap<String, Integer> orderMap = new HashMap<>();
+        orderMap.put("제로콜라", 2);
+        orderMap.put("레드와인", 1);
+        orderMap.put("티본스테이크", 18);
+
+        assertThrows(IllegalArgumentException.class, () ->
+                orderService.addByMap(orderMap)
+        );
     }
 
     @DisplayName("getTotalPrice - 유효한 주문")
