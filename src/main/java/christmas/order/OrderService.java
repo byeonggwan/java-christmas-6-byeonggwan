@@ -36,4 +36,8 @@ public class OrderService {
             throw ex;
         }
     }
+
+    public HashMap<MenuItem, Integer> getOrder() {
+        return order;
+    }
 }

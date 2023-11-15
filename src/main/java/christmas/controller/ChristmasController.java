@@ -9,6 +9,7 @@ public class ChristmasController {
     private InputView inputView;
     private OutputView outputView;
     private OrderService orderService;
+    private Integer day;
 
     public ChristmasController() {
         inputView = new InputView();
@@ -20,6 +21,8 @@ public class ChristmasController {
         hello();
         askDay();
         askOrder();
+        startPreview();
+        printOrder();
     }
 
     private void hello() {
@@ -28,7 +31,6 @@ public class ChristmasController {
 
     private void askDay() {
         outputView.printAskDay();
-        Integer day;
         boolean isDone = false;
         while (!isDone) {
             try {
@@ -54,5 +56,13 @@ public class ChristmasController {
                 System.out.println(ex.getMessage());
             }
         }
+    }
+
+    private void startPreview() {
+        outputView.printPreview(day);
+    }
+
+    private void printOrder() {
+        outputView.printOrder(orderService.getOrder());
     }
 }
