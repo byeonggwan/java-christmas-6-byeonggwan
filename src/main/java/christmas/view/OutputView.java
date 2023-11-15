@@ -1,5 +1,6 @@
 package christmas.view;
 
+import christmas.event.Badge;
 import christmas.menu.MenuItem;
 import java.util.HashMap;
 
@@ -80,4 +81,8 @@ public class OutputView {
         System.out.println("");
     }
 
+    public void printBadge(String badgeName) {
+        System.out.println("<12월 이벤트 배지>");
+        System.out.println(badgeName);
+    }
 }

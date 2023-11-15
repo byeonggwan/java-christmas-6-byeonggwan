@@ -1,5 +1,6 @@
 package christmas.controller;
 
+import christmas.event.Badge;
 import christmas.event.EventService;
 import christmas.order.OrderService;
 import christmas.view.InputView;
@@ -31,6 +32,7 @@ public class ChristmasController {
         printEvent();
         printTotalDisc();
         printLastPrice();
+        printBadge();
     }
 
     private void hello() {
@@ -92,12 +94,7 @@ public class ChristmasController {
     }
 
     private void printTotalDisc() {
-        outputView.printTotalDisc(eventService.getTotalDiscount(
-                day,
-                orderService.getCategoryCount("디저트"),
-                orderService.getCategoryCount("메인"),
-                orderService.getTotalPrice()
-        ));
+        outputView.printTotalDisc(getTotalDiscount());
     }
 
     private void printLastPrice() {
@@ -109,5 +106,18 @@ public class ChristmasController {
         ));
     }
 
+    private void printBadge() {
+        Integer totalDiscount = getTotalDiscount();
+        Badge badge = Badge.valueOf(totalDiscount);
+        outputView.printBadge(badge.getName());
+    }
 
+    private Integer getTotalDiscount() {
+        return eventService.getTotalDiscount(
+                day,
+                orderService.getCategoryCount("디저트"),
+                orderService.getCategoryCount("메인"),
+                orderService.getTotalPrice()
+        );
+    }
 }
