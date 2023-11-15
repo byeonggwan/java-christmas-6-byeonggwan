@@ -64,4 +64,21 @@ public class EventService {
         }
         return 0;
     }
+
+    public Integer getTotalDiscount(Integer day, Integer dessertCount, Integer mainMenuCount, Integer totalPrice) {
+        HashMap<String, Integer> appliedEvents = apply(day, dessertCount, mainMenuCount, totalPrice);
+        Integer totalDiscount = 0;
+        for (Integer discount : appliedEvents.values()) {
+            totalDiscount += discount;
+        }
+        return totalDiscount;
+    }
+
+    public Integer getTotalDiscountExceptGift(Integer day, Integer dessertCount, Integer mainMenuCount, Integer totalPrice) {
+        Integer totalDiscount = getTotalDiscount(day, dessertCount, mainMenuCount, totalPrice);
+        if (totalPrice >= 120000) {
+            totalDiscount -= giftPrice;
+        }
+        return totalDiscount;
+    }
 }

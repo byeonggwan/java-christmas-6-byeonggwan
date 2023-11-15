@@ -29,6 +29,8 @@ public class ChristmasController {
         printTotalPrice();
         printGift();
         printEvent();
+        printTotalDisc();
+        printLastPrice();
     }
 
     private void hello() {
@@ -88,4 +90,24 @@ public class ChristmasController {
                 orderService.getTotalPrice()
         ));
     }
+
+    private void printTotalDisc() {
+        outputView.printTotalDisc(eventService.getTotalDiscount(
+                day,
+                orderService.getCategoryCount("디저트"),
+                orderService.getCategoryCount("메인"),
+                orderService.getTotalPrice()
+        ));
+    }
+
+    private void printLastPrice() {
+        outputView.printLastPrice(orderService.getTotalPrice(), eventService.getTotalDiscountExceptGift(
+                day,
+                orderService.getCategoryCount("디저트"),
+                orderService.getCategoryCount("메인"),
+                orderService.getTotalPrice()
+        ));
+    }
+
+
 }
