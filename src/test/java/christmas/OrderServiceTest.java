@@ -42,4 +42,19 @@ public class OrderServiceTest {
                 orderService.add("양송이수프", -1)
         );
     }
+
+    @DisplayName("getTotalPrice - 주문이 없을 때")
+    @Test
+    void getTotalPriceNoOrder() {
+        assertEquals(0, orderService.getTotalPrice());
+    }
+
+    @DisplayName("getTotalPrice - 유효한 주문")
+    @Test
+    void getTotalPriceValidOrder() {
+        orderService.add("양송이수프", 2);
+        orderService.add("초코케이크", 1);
+
+        assertEquals(27000, orderService.getTotalPrice());
+    }
 }

@@ -40,4 +40,12 @@ public class OrderService {
     public HashMap<MenuItem, Integer> getOrder() {
         return order;
     }
+
+    public Integer getTotalPrice() {
+        Integer totalPrice = 0;
+        for (MenuItem menuItem : order.keySet()) {
+            totalPrice += order.get(menuItem) * menuItem.getPrice();
+        }
+        return totalPrice;
+    }
 }

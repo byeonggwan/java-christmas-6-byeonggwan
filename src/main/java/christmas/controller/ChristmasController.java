@@ -23,6 +23,7 @@ public class ChristmasController {
         askOrder();
         startPreview();
         printOrder();
+        printTotalPrice();
     }
 
     private void hello() {
@@ -64,5 +65,9 @@ public class ChristmasController {
 
     private void printOrder() {
         outputView.printOrder(orderService.getOrder());
+    }
+
+    private void printTotalPrice() {
+        outputView.printTotalPrice(orderService.getTotalPrice());
     }
 }
