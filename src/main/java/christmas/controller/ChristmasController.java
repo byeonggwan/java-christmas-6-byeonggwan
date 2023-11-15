@@ -1,5 +1,6 @@
 package christmas.controller;
 
+import christmas.event.EventService;
 import christmas.order.OrderService;
 import christmas.view.InputView;
 import christmas.view.OutputView;
@@ -9,12 +10,14 @@ public class ChristmasController {
     private InputView inputView;
     private OutputView outputView;
     private OrderService orderService;
+    private EventService eventService;
     private Integer day;
 
     public ChristmasController() {
         inputView = new InputView();
         outputView = new OutputView();
         orderService = new OrderService();
+        eventService = new EventService();
     }
 
     public void run() {
@@ -24,6 +27,8 @@ public class ChristmasController {
         startPreview();
         printOrder();
         printTotalPrice();
+        printGift();
+        printEvent();
     }
 
     private void hello() {
@@ -69,5 +74,18 @@ public class ChristmasController {
 
     private void printTotalPrice() {
         outputView.printTotalPrice(orderService.getTotalPrice());
+    }
+
+    private void printGift() {
+        outputView.printGift(orderService.getTotalPrice());
+    }
+
+    private void printEvent() {
+        outputView.printDisc(eventService.apply(
+                day,
+                orderService.getCategoryCount("디저트"),
+                orderService.getCategoryCount("메인"),
+                orderService.getTotalPrice()
+        ));
     }
 }

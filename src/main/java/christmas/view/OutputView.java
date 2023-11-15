@@ -36,4 +36,30 @@ public class OutputView {
         System.out.println("<할인 전 총주문 금액>");
         System.out.printf("%,d원\n\n", totalPrice);
     }
+
+    public void printGift(Integer totalPrice) {
+        System.out.println("<증정 메뉴>");
+        String gift = "없음";
+        if (totalPrice >= 120000) {
+            gift = "샴페인 1개";
+        }
+        System.out.println(gift);
+        System.out.println("");
+    }
+
+    public void printDisc(HashMap<String, Integer> appliedEvents) {
+        System.out.println("<혜택 내역>");
+        Integer count = 0;
+        for (String name : appliedEvents.keySet()) {
+            Integer discount = appliedEvents.get(name);
+            if (discount != 0) {
+                count += 1;
+                System.out.printf(name + ": -%,d원\n", discount);
+            }
+        }
+        if (count == 0) {
+            System.out.println("없음");
+        }
+        System.out.println("");
+    }
 }
